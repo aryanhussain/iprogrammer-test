@@ -1,0 +1,57 @@
+<mat-grid-list cols="3" style="text-align:center">
+  <mat-grid-tile *ngFor="let photo of photos | paginate: { itemsPerPage: 10, currentPage: p } ; let i = index">
+    <mat-card class="example-card">
+      <mat-card-content class="text-center">
+        <img mat-card-image height="100" width="100" [src]="photo.thumbnailUrl" alt="{{photo.thumbnailUrl}}">
+        <p>{{photo.title}}</p>
+        <p>{{photo.id}}</p>
+        <p>{{photo.url}}</p>
+      </mat-card-content>
+      <mat-card-actions>
+        <button *ngIf="!photo.isAdded" mat-button (click)="ComparePhoto(photo, i)">COMPARE</button>
+        <button *ngIf="photo.isAdded" mat-button (click)="removePhoto(photo, i)">REMOVE</button>
+      </mat-card-actions>
+    </mat-card>
+  </mat-grid-tile>
+
+</mat-grid-list>
+
+<pagination-controls (pageChange)="p = $event"></pagination-controls>
+
+
+<div class="mat-elevation-z8" *ngIf="addedPhotos.length > 0">
+  <table mat-table [dataSource]="dataSource">
+
+
+    <ng-container matColumnDef="thumbnailUrl">
+      <th mat-header-cell *matHeaderCellDef> </th>
+      <td mat-cell *matCellDef="let element">
+        <img src="{{element.thumbnailUrl}}" alt="Thumbnail">
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="id">
+      <th mat-header-cell *matHeaderCellDef> Id </th>
+      <td mat-cell *matCellDef="let element"> {{element.id}} </td>
+    </ng-container>
+
+
+    <ng-container matColumnDef="url">
+      <th mat-header-cell *matHeaderCellDef> Url </th>
+      <td mat-cell *matCellDef="let element"> {{element.url}} </td>
+    </ng-container>
+
+
+    <ng-container matColumnDef="title">
+      <th mat-header-cell *matHeaderCellDef> Title </th>
+      <td mat-cell *matCellDef="let element"> {{element.title}} </td>
+    </ng-container>
+
+
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
+
+  <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+</div>
