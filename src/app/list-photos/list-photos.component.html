@@ -1,5 +1,5 @@
 <mat-grid-list cols="3" style="text-align:center">
-  <mat-grid-tile *ngFor="let photo of photos | paginate: { itemsPerPage: 10, currentPage: p } ; let i = index">
+  <mat-grid-tile *ngFor="let photo of photos | paginate: { itemsPerPage: 10, currentPage: p }">
     <mat-card class="example-card">
       <mat-card-content class="text-center">
         <img mat-card-image height="100" width="100" [src]="photo.thumbnailUrl" alt="{{photo.thumbnailUrl}}">
@@ -8,8 +8,8 @@
         <p>{{photo.url}}</p>
       </mat-card-content>
       <mat-card-actions>
-        <button *ngIf="!photo.isAdded" mat-button (click)="ComparePhoto(photo, i)">COMPARE</button>
-        <button *ngIf="photo.isAdded" mat-button (click)="removePhoto(photo, i)">REMOVE</button>
+        <button *ngIf="!photo.isAdded" mat-button (click)="comparePhoto(photo)">COMPARE</button>
+        <button *ngIf="photo.isAdded" mat-button (click)="removePhoto(photo)">REMOVE</button>
       </mat-card-actions>
     </mat-card>
   </mat-grid-tile>

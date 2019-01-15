@@ -21,6 +21,7 @@ export class ListPhotosComponent implements OnInit {
   constructor(private router: Router, private userService: PhotosService) { }
 
   ngOnInit() {
+    // getting photos data
     this.userService.getData()
       .subscribe(data => {
         this.photos = data;
@@ -30,8 +31,8 @@ export class ListPhotosComponent implements OnInit {
       });
   }
 
-  ComparePhoto(photo, index) {
-    debugger;
+  comparePhoto(photo) {
+    // Adding photo to compare stack
     this.photos.map(p =>{
       if(p.id === photo.id){
         p.isAdded = true;
@@ -43,7 +44,8 @@ export class ListPhotosComponent implements OnInit {
     this.dataSource.paginator = this.paginator;
   }
 
-  removePhoto(photo, index) {
+  removePhoto(photo) {
+    // Adding remove to compare stack
     this.photos.map(p =>{
       if(p.id === photo.id){
         p.isAdded = false;
@@ -56,11 +58,6 @@ export class ListPhotosComponent implements OnInit {
     this.dataSource = new MatTableDataSource<IPhotos>(this.addedPhotos);
     this.dataSource.paginator = this.paginator;
   }
-
-  pageChanged(event){
-    console.log(event);
-  }
-
 
 }
 
